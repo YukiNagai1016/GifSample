@@ -7,14 +7,48 @@
 //
 
 import UIKit
+import SwiftyGif
 
-class ViewController: UIViewController {
-
+class ViewController: UIViewController ,SwiftyGifDelegate {
+    
+    @IBOutlet private weak var imageView: UIImageView!
+    
+    var gifName: String?
+    let gifManager = SwiftyGifManager(memoryLimit: 60)
+  
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        self.imageView.delegate = self
+        if let image = try? UIImage(imageName: "gifImages.gif") {
+            self.imageView.setImage(image, manager: gifManager)
+        }
     }
-
-
+    
+//    func fetchGifFromURLString(_ string: String?) {
+//        guard let string = string, let url = URL(string: string) else {
+//            return
+//        }
+//        self.imageView.setGifFromURL(url, manager: gifManager, levelOfIntegrity: .highestNoFrameSkipping)
+//    }
+    
+    
 }
 
+//extension ViewController : SwiftyGifDelegate {
+//
+//    func gifURLDidFinish(sender: UIImageView) {
+//        print("gifURLDidFinish")
+//    }
+//
+//    func gifURLDidFail(sender: UIImageView, url: URL, error: Error?) {
+//        print("gifURLDidFail", url)
+//
+//        if let error = error {
+//            print(error)
+//        }
+//    }
+//
+//    func gifDidStart(sender: UIImageView) {
+//        print("gifDidStart")
+//    }
+//}
